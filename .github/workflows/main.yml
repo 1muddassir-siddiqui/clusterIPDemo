@@ -25,14 +25,14 @@ jobs:
       - name: Build and push Backend image
         uses: docker/build-push-action@v4
         with:
-          context: ./ClusterIP/backend
+          context: ./1muddassir/clusteripbackend
           push: true
           tags: 1muddassir/clusteripbackend:latest
 
       - name: Build and push Frontend image
         uses: docker/build-push-action@v4
         with:
-          context: ./ClusterIP/frontend
+          context: ./1muddassir/clusterip
           push: true
           tags: 1muddassir/clusterip:latest
 
