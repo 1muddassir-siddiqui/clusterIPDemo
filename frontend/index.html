@@ -114,15 +114,15 @@
     </div>
 
     <script>
-        // Backend service URL - will work inside Kubernetes cluster
-        const BACKEND_URL = 'http://backend-service:5000';
+        // Call our own frontend server's API endpoints
+        const API_BASE = '/api';
 
         async function fetchEmployees() {
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<div class="loading">⏳ Loading employees...</div>';
             
             try {
-                const response = await fetch(`${BACKEND_URL}/employees`);
+                const response = await fetch(`${API_BASE}/employees`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 
                 const employees = await response.json();
@@ -145,7 +145,7 @@
                 resultDiv.innerHTML = `
                     <div class="error">
                         <strong>❌ Error:</strong> Could not connect to backend service.<br>
-                        Make sure the backend service is running at: ${BACKEND_URL}
+                        Error: ${error.message}
                     </div>
                 `;
             }
@@ -156,7 +156,7 @@
             resultDiv.innerHTML = '<div class="loading">⏳ Fetching message...</div>';
             
             try {
-                const response = await fetch(`${BACKEND_URL}/message`);
+                const response = await fetch(`${API_BASE}/message`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 
                 const data = await response.json();
@@ -173,7 +173,7 @@
                 resultDiv.innerHTML = `
                     <div class="error">
                         <strong>❌ Error:</strong> Could not connect to backend service.<br>
-                        Make sure the backend service is running at: ${BACKEND_URL}
+                        Error: ${error.message}
                     </div>
                 `;
             }
@@ -193,7 +193,7 @@
         // Check connection on page load
         window.onload = async () => {
             try {
-                const response = await fetch(`${BACKEND_URL}/message`);
+                const response = await fetch(`${API_BASE}/message`);
                 updateStatus(response.ok);
             } catch (error) {
                 updateStatus(false);
